@@ -53,7 +53,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Render Compose File
         run: |
-          CUBEJS_IMAGE=${{ needs.build-metabase.outputs.tags }}
+          CUBEJS_IMAGE=${{ needs.build-cubejs.outputs.tags }}
           export CUBEJS_IMAGE
           # Render simple template from environment variables.
           envsubst < docker-compose.uffizzi.yml > docker-compose.rendered.yml
