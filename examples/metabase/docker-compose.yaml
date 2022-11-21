@@ -34,9 +34,6 @@ services:
     image: metabase/metabase
     env_file:
       - ./config/metabase.env
-    depends_on:
-      - postgres
-
 # Volumes to persist data
 volumes:
   postgres_volume:
