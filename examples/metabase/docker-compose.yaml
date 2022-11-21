@@ -3,14 +3,13 @@ version: '3'
 # uffizzi integration
 x-uffizzi:
   ingress:
-    service: metabase
+    service: cube
     port: 4000
 
 services:
   cube:
-    container_name: "cube"
     restart: "always"
-    image: cubejs/cube
+    image: "${CUBEJS_IMAGE}"
     # ports:
     #   - 4000:4000  # Cube.js API and Developer Playground
     #   - 5432:5432  # Cube SQL API
