@@ -63,7 +63,6 @@ jobs:
           name: preview-spec
           path: docker-compose.rendered.yml
           retention-days: 2
-          cache-from: type=registry,src=docker.pkg.github.com/$GITHUB_REPOSITORY/metabase-github-package
       - name: Serialize PR Event to File
         run:  |
           cat << EOF > event.json
