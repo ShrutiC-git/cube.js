@@ -9,22 +9,30 @@ x-uffizzi:
 services:
   cube:
     image: "${CUBEJS_IMAGE}"
-    # ports:
-    #   - 4000:4000  # Cube.js API and Developer Playground
-    #   - 5432:5432  # Cube SQL API
-    env_file:
-      - ./config/cube.env
+    environment:
+      - MB_DB_TYPE=postgres
+      - MB_DB_DBNAME=metabase
+      - MB_DB_PORT=54320
+      - MB_DB_USER=metabase
+      - MB_DB_PASS=12345
+      - MB_DB_HOST=postgres
 
   postgres:
     image: postgres
-    env_file:
-      - ./config/postgres.env
+    environment:
+      - POSTGRES_PASSWORD=12345
+      - METABASE_PASSWORD=12345
 
   metabase:
     restart: "always"
     image: metabase/metabase
-    env_file:
-      - ./config/metabase.env
+    environment:
+      - MB_DB_TYPE=postgres
+      - MB_DB_DBNAME=metabase
+      - MB_DB_PORT=54320
+      - MB_DB_USER=metabase
+      - MB_DB_PASS=12345
+      - MB_DB_HOST=postgres
 # Volumes to persist data
 volumes:
   postgres_volume:
