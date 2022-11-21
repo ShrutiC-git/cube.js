@@ -8,7 +8,6 @@ x-uffizzi:
 
 services:
   cube:
-    restart: "always"
     image: "${CUBEJS_IMAGE}"
     # ports:
     #   - 4000:4000  # Cube.js API and Developer Playground
@@ -19,7 +18,6 @@ services:
       - .:/cube/conf
 
   postgres:
-    container_name: "postgres"
     image: postgres
     env_file:
       - ./config/postgres.env
@@ -28,7 +26,6 @@ services:
       - ./services/postgres/:/docker-entrypoint-initdb.d/
 
   metabase:
-    container_name: "metabase"
     restart: "always"
     image: metabase/metabase
     env_file:
