@@ -9,5 +9,9 @@ x-uffizzi:
 services:
   cube:
     image: "${CUBEJS_IMAGE}"
+    environment:
+      - CUBEJS_DEV_MODE=true
+    volumes:
+      - .:/cube/conf
 
 
