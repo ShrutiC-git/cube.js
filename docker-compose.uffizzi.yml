@@ -14,16 +14,11 @@ services:
     #   - 5432:5432  # Cube SQL API
     env_file:
       - ./config/cube.env
-    volumes:
-      - .:/cube/conf
 
   postgres:
     image: postgres
     env_file:
       - ./config/postgres.env
-    volumes:
-      - postgres_volume:/var/lib/postgresql/data/
-      - ./postgres/:/docker-entrypoint-initdb.d/
 
   metabase:
     restart: "always"
