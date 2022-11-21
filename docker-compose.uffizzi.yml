@@ -8,7 +8,7 @@ x-uffizzi:
 
 services:
   cube:
-    image: "${CUBEJS_IMAGE}"
+    image: cubejs/cube
     environment:
       - MB_DB_TYPE=postgres
       - MB_DB_DBNAME=metabase
