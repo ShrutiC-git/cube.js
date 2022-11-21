@@ -28,5 +28,9 @@ services:
       - CUBEJS_API_SECRET=SECRET
     volumes:
       - .:/cube/conf
+    deploy:
+      resources:
+        limits:
+          memory: 500M
 
 
