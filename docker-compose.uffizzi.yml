@@ -23,7 +23,7 @@ services:
       - ./config/postgres.env
     volumes:
       - postgres_volume:/var/lib/postgresql/data/
-      - ./services/postgres/:/docker-entrypoint-initdb.d/
+      - ./postgres/:/docker-entrypoint-initdb.d/
 
   metabase:
     restart: "always"
