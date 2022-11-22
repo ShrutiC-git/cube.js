@@ -11,4 +11,5 @@ CREATE TABLE postgres.users (
   country varchar(30) NOT NULL
 );
 INSERT into users VALUES (1, NN, IN), (2, BN, NZ), (3, SS, AU), (4, G, RUS)
+SELECT * FROM users
 EOSQL
