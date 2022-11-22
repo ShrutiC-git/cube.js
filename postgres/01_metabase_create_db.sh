@@ -7,5 +7,5 @@ POSTGRES="psql --username postgres"
 # create database for superset
 echo "Creating database: postgres"
 $POSTGRES <<EOSQL
-CREATE DATABASE postgres OWNER postgres;
+CREATE DATABASE postgres OWNER metabase;
 EOSQL

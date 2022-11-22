@@ -7,7 +7,7 @@ POSTGRES="psql -U postgres"
 # create a shared role to read & write general datasets into postgres
 echo "Creating database role: postgres"
 $POSTGRES <<-EOSQL
-CREATE USER postgres WITH
+CREATE USER metabase WITH
     LOGIN
     NOSUPERUSER
     NOCREATEDB
