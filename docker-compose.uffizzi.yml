@@ -12,10 +12,8 @@ services:
   seed:
     image: jbergknoff/postgresql-client
     volumes:
-      - .:/seed
+      - postgres_data:/seed
     entrypoint: ["sh", "seed/seed.sh"]
-    depends_on:
-      - materialize
   cube:
     image: "${CUBEJS_IMAGE}"
     environment:
@@ -27,10 +25,13 @@ services:
       - CUBEJS_DB_USER=materialize
       - CUBEJS_API_SECRET=SECRET
     volumes:
-      - .:/cube/conf
+      - .cube_data:/cube/conf
     deploy:
       resources:
         limits:
           memory: 500M
+volumes:
+  postgres_data:
+  cube_data:
 
 
