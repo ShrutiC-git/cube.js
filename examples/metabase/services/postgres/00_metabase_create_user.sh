@@ -6,7 +6,7 @@ POSTGRES="psql -U postgres"
 
 # create a shared role to read & write general datasets into postgres
 echo "Creating database role: metabase"
-$POSTGRES <<-EOSQL
+cat <<-EOSQL
 CREATE ROLE postgres LOGIN SUPERUSER;
 CREATE USER metabase WITH
     LOGIN
