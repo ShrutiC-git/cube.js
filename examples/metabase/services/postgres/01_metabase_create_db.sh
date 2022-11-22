@@ -2,10 +2,10 @@
 
 set -e # exit immediately if a command exits with a non-zero status.
 
-POSTGRES="psql -U postgres"
+#POSTGRES="psql -U postgres"
 
 # create database for superset
 echo "Creating database: metabase"
-$POSTGRES <<EOSQL
+cat <<EOSQL
 CREATE DATABASE metabase OWNER metabase;
 EOSQL
