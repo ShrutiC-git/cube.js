@@ -25,7 +25,7 @@ services:
       - CUBEJS_DB_USER=materialize
       - CUBEJS_API_SECRET=SECRET
     volumes:
-      - .cube_data:/cube/conf
+      - cube_data:/cube/conf
     deploy:
       resources:
         limits:
