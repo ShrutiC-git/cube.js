@@ -7,8 +7,7 @@ POSTGRES="psql -U postgres"
 # create database for superset
 echo "Seeding database: metabase"
 $POSTGRES <<EOSQL
-USE postgres
-CREATE TABLE users (
+CREATE TABLE pg_catalog.users (
   user_id int PRIMARY KEY,
   username varchar(25) NOT NULL,
   country varchar(30) NOT NULL
