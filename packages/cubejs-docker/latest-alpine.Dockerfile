@@ -30,8 +30,6 @@ ENV NODE_PATH /cube/conf/node_modules:/cube/node_modules
 RUN ln -s /cube/node_modules/.bin/cubejs /usr/local/bin/cubejs
 RUN ln -s /cube/node_modules/.bin/cubestore-dev /usr/local/bin/cubestore-dev
 
-WORKDIR /cube/conf
-
 EXPOSE 4000
 
 CMD ["cubejs", "server"]
