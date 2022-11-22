@@ -37,7 +37,7 @@ services:
      - METABASE_PASSWORD=admin
     volumes:
       - postgres_volume:/var/lib/postgresql/data/
-      - ./postgres/:/docker-entrypoint-initdb.d/
+    #  - ./postgres/:/docker-entrypoint-initdb.d/
   metabase:
     image: metabase/metabase
     environment:
