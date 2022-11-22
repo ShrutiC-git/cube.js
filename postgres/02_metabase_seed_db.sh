@@ -11,6 +11,6 @@ CREATE SCHEMA test_schema
     CREATE TABLE test_users (  user_id int PRIMARY KEY,
   username varchar(25) NOT NULL,
   country varchar(30) NOT NULL);
-INSERT into test_schema.test_users(user_id,username,country) VALUES (1, "NN", "IN"), (2, "BN", "NZ"), (3, "SS", "AU"), (4, "GL", "RUS");
+INSERT into test_schema.test_users(user_id,username,country) VALUES (1, 'NN', 'IN'), (2, 'BN', 'NZ'), (3, 'SS', 'AU'), (4, 'GL', 'RUS');
 
 EOSQL
