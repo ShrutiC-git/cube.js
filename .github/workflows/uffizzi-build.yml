@@ -38,7 +38,6 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           push: true
           cache-from: type=gha
-          cache-to: type=gha
 
   render-compose-file:
     name: Render Docker Compose File
