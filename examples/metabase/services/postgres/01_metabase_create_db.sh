@@ -9,3 +9,4 @@ echo "Creating database: metabase"
 cat <<EOSQL
 CREATE DATABASE metabase OWNER metabase;
 EOSQL
+
