@@ -11,16 +11,11 @@ services:
     image: "${CUBEJS_IMAGE}"
     environment:
       - CUBEJS_DEV_MODE=true
-      - CUBEJS_DB_HOST=demo-db-examples.cube.dev
-      - CUBEJS_DB_PORT=5432
-      - CUBEJS_DB_NAME=ecom
-      - CUBEJS_DB_USER=cube
+      - CUBEJS_DB_HOST=localhost
+      - CUBEJS_DB_NAME=metabase
+      - CUBEJS_DB_USER=admin
       - CUBEJS_DB_PASS=admin
       - CUBEJS_DB_TYPE=postgres
-      - CUBEJS_API_SECRET=SECRET
-      - CUBEJS_PG_SQL_PORT=5432
-      - CUBEJS_SQL_USER=cube
-      - CUBEJS_SQL_PASSWORD=admin
     deploy:
       resources:
         limits:
@@ -32,25 +27,12 @@ services:
     environment:
      - POSTGRES_USER=admin
      - POSTGRES_PASSWORD=admin
-     - POSTGRES_DB=root
+     - POSTGRES_DB=metabase
      - PGDATA=/tmp
      - METABASE_PASSWORD=admin
     volumes:
       - postgres_volume:/var/lib/postgresql/data/
     #  - ./postgres/:/docker-entrypoint-initdb.d/
-  metabase:
-    image: metabase/metabase
-    environment:
-        - MB_DB_TYPE=postgres
-        - MB_DB_DBNAME=root
-        - MB_DB_PORT=5432
-        - MB_DB_USER=admin
-        - MB_DB_PASS=admin
-        - MB_DB_HOST=localhost
-    deploy:
-      resources:
-        limits:
-          memory: 1000M
 
 # Volumes to persist data
 volumes:
