@@ -13,8 +13,8 @@ services:
       - CUBEJS_DEV_MODE=true
       - CUBEJS_DB_HOST=localhost
       - CUBEJS_DB_NAME=metabase
-      - CUBEJS_DB_USER=admin
-      - CUBEJS_DB_PASS=admin
+      - CUBEJS_DB_USER=postgres
+      - CUBEJS_DB_PASS=postgres
       - CUBEJS_DB_TYPE=postgres
     deploy:
       resources:
@@ -25,11 +25,11 @@ services:
   postgres:
     image: postgres
     environment:
-     - POSTGRES_USER=admin
-     - POSTGRES_PASSWORD=admin
+     - POSTGRES_USER=postgres
+     - POSTGRES_PASSWORD=postgres
      - POSTGRES_DB=metabase
      - PGDATA=/tmp
-     - METABASE_PASSWORD=admin
+     - METABASE_PASSWORD=postgres
     volumes:
       - postgres_volume:/var/lib/postgresql/data/
       - ./postgres/:/docker-entrypoint-initdb.d/
