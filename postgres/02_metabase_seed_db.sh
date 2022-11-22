@@ -2,9 +2,11 @@
 
 set -e # exit immediately if a command exits with a non-zero status.
 
+POSTGRES="psql -U postgres"
+
 # create database for superset
 echo "Seeding database: metabase"
-cat <<EOSQL
+$POSTGRES <<EOSQL
 CREATE TABLE postgres.users (
   user_id int PRIMARY KEY,
   username varchar(25) NOT NULL,
