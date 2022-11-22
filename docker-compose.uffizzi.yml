@@ -11,14 +11,9 @@ services:
     image: "${CUBEJS_IMAGE}"
     environment:
       - CUBEJS_DEV_MODE=true
-    volumes:
-      - cube_data:/cube/conf
     deploy:
       resources:
         limits:
           memory: 500M
-volumes:
-  postgres_data:
-  cube_data:
 
 
