@@ -14,7 +14,7 @@ services:
       - CUBEJS_DEV_MODE=true
       - CUBEJS_DB_TYPE=postgres
       - CUBEJS_DB_HOST=localhost
-      - CUBEJS_DB_NAME=ecom
+      - CUBEJS_DB_NAME=metabase
       - CUBEJS_DB_USER=metabase
       - CUBEJS_DB_PASS=12345
       - CUBEJS_DB_PORT=5432
