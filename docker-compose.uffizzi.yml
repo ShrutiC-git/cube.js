@@ -30,7 +30,7 @@ services:
    image: postgres
    environment:
      - POSTGRES_PASSWORD=12345
-     - PGDATA=/tmp
+    #  - PGDATA=/tmp
      - METABASE_PASSWORD=12345
    deploy:
       resources:
