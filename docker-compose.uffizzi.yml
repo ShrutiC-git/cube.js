@@ -11,6 +11,11 @@ services:
     image: "${CUBEJS_IMAGE}"
     environment:
       - CUBEJS_DEV_MODE=true
+      - CUBEJS_DB_TYPE=postgres
+      - CUBEJS_DB_HOST=localhost
+      - CUBEJS_DB_NAME=root
+      - CUBEJS_DB_USER=postgres
+      - CUBEJS_DB_PASS=postgres
     deploy:
       resources:
         limits:
