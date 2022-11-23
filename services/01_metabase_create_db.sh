@@ -8,4 +8,5 @@ POSTGRES="psql --username postgres"
 echo "Creating database: metabase"
 $POSTGRES <<EOSQL
 CREATE DATABASE metabase OWNER metabase;
+GRANT ALL PRIVILEGES ON DATABASE metabase TO metabase;
 EOSQL
