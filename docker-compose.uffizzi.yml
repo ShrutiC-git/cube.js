@@ -7,15 +7,18 @@ x-uffizzi:
     port: 4000
 
 services:
+  materialize:
+    image: materialize/materialized:v0.26.1
   cube:
     image: "${CUBEJS_IMAGE}"
     environment:
       - CUBEJS_DEV_MODE=true
-      - CUBEJS_DB_HOST=localhost
-      - CUBEJS_DB_NAME=metabase
-      - CUBEJS_DB_USER=postgres
-      - CUBEJS_DB_PASS=postgres
-      - CUBEJS_DB_TYPE=postgres
+      - CUBEJS_DB_HOST=materialize
+      - CUBEJS_DB_NAME=materialize
+      - CUBEJS_DB_USER=materialize
+      - CUBEJS_DB_PORT=6875
+      - CUBEJS_DB_TYPE=materialize
+      - CUBEJS_API_SECRET=SECRET
     deploy:
       resources:
         limits:
@@ -23,15 +26,10 @@ services:
     volumes:
      - cube_volume:/cube/conf
   postgres:
-    image: postgres
-    environment:
-     - POSTGRES_USER=postgres
-     - POSTGRES_PASSWORD=postgres
-     - POSTGRES_DB=metabase
-     - PGDATA=/tmp
+    image: jbergknoff/postgresql-client
+    entrypoint: ["sh", "seed/seed.sh"]
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-      - ./postgres/:/docker-entrypoint-initdb.d/
 
 # Volumes to persist data
 volumes:
