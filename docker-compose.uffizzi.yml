@@ -8,7 +8,8 @@ x-uffizzi:
 
 services:
   materialize:
-    image: materialize/materialized:v0.26.1
+    image: materialize/materialized
+
   cube:
     image: "${CUBEJS_IMAGE}"
     environment:
@@ -25,6 +26,7 @@ services:
           memory: 500M
     volumes:
      - cube_volume:/cube/conf
+
   postgres:
     image: jbergknoff/postgresql-client
     entrypoint: ["sh", "seed/seed.sh"]
