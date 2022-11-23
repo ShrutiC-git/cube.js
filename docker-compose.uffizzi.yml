@@ -13,9 +13,9 @@ services:
       - CUBEJS_DEV_MODE=true
       - CUBEJS_DB_TYPE=postgres
       - CUBEJS_DB_HOST=localhost
-      - CUBEJS_DB_NAME=root
-      - CUBEJS_DB_USER=postgres
-      - CUBEJS_DB_PASS=postgres
+      - CUBEJS_DB_NAME=ecom
+      - CUBEJS_DB_USER=cube
+      - CUBEJS_DB_PASS=12345
       - CUBEJS_DB_PORT=5432
       - CUBEJS_SQL_USER=cube
       - CUBEJS_SQL_PASSWORD=12345
@@ -30,10 +30,10 @@ services:
    image: metabase/metabase
    environment:
         - MB_DB_TYPE=postgres
-        - MB_DB_DBNAME=root
+        - MB_DB_DBNAME=metabase
         - MB_DB_PORT=5432
-        - MB_DB_USER=postgres
-        - MB_DB_PASS=postgres
+        - MB_DB_USER=metabase
+        - MB_DB_PASS=12345
         - MB_DB_HOST=localhost
    deploy:
       resources:
@@ -43,10 +43,9 @@ services:
   db:
    image: postgres
    environment:
-     - POSTGRES_USER=postgres
-     - POSTGRES_PASSWORD=postgres
-     - POSTGRES_DB=root
+     - POSTGRES_PASSWORD=12345
      - PGDATA=/tmp
+     - METABASE_PASSWORD=12345
    deploy:
       resources:
         limits:
