@@ -13,9 +13,10 @@ services:
 
   seed:
     image: jbergknoff/postgresql-client
+    entrypoint: ["sh", "/seed/seed.sh"]
     volumes:
       - seed_volume:/seed
-    entrypoint: ["sh", "seed/seed.sh"]
+
 
   cube:
     image: "${CUBEJS_IMAGE}"
