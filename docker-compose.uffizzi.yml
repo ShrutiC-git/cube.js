@@ -14,12 +14,15 @@ services:
     image: "${CUBEJS_IMAGE}"
     environment:
       - CUBEJS_DEV_MODE=true
-      - CUBEJS_DB_HOST=materialize
-      - CUBEJS_DB_NAME=materialize
-      - CUBEJS_DB_USER=materialize
-      - CUBEJS_DB_PORT=6875
-      - CUBEJS_DB_TYPE=materialize
+      - CUBEJS_DB_HOST=localhost
+      - CUBEJS_DB_NAME=ecom
+      - CUBEJS_DB_USER=cube
+      - CUBEJS_DB_PASS=12345
+      - CUBEJS_DB_TYPE=postgres
       - CUBEJS_API_SECRET=SECRET
+      - CUBEJS_PG_SQL_PORT=5432
+      - CUBEJS_SQL_USER=cube
+      - CUBEJS_SQL_PASSWORD=12345
     deploy:
       resources:
         limits:
@@ -28,10 +31,24 @@ services:
      - cube_volume:/cube/conf
 
   postgres:
-    image: jbergknoff/postgresql-client
+    image: postgres
     entrypoint: /seed/seed.sh
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+      - ./services/postgres/:/docker-entrypoint-initdb.d/
+    environment:
+      - POSTGRES_PASSWORD=12345
+      - METABASE_PASSWORD=12345
+      - PG_DATA = /tmp
+
+  metabase:
+    image: metabase/metabase
+    environment:
+      - MB_DB_TYPE=postgres
+      - MB_DB_DBNAME=metabase
+      - MB_DB_USER=metabase
+      - MB_DB_PASS=12345
+      - MB_DB_HOST=postgres
 
 # Volumes to persist data
 volumes:
