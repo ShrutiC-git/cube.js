@@ -12,14 +12,14 @@ services:
     environment:
       - CUBEJS_DEV_MODE=true
       - CUBEJS_DB_HOST=localhost
-      - CUBEJS_DB_NAME=ecom
-      - CUBEJS_DB_USER=cube
-      - CUBEJS_DB_PASS=12345
+      - CUBEJS_DB_NAME=root
+      - CUBEJS_DB_USER=postgres
+      - CUBEJS_DB_PASS=postgres
       - CUBEJS_DB_TYPE=postgres
       - CUBEJS_API_SECRET=SECRET
       - CUBEJS_PG_SQL_PORT=5432
-      - CUBEJS_SQL_USER=cube
-      - CUBEJS_SQL_PASSWORD=12345
+      - CUBEJS_SQL_USER=postgres
+      - CUBEJS_SQL_PASSWORD=postgres
     deploy:
       resources:
         limits:
@@ -27,24 +27,20 @@ services:
     volumes:
      - cube_volume:/cube/conf
 
-  postgres:
-    image: postgres
-    volumes:
+  db:
+   image: postgres
+   environment:
+     - POSTGRES_USER=postgres
+     - POSTGRES_PASSWORD=postgres
+     - POSTGRES_DB=root
+     - PGDATA=/tmp
+   deploy:
+      resources:
+        limits:
+          memory: 250M
+   volumes:
       - postgres_data:/var/lib/postgresql/data/
       - ./postgres/:/docker-entrypoint-initdb.d/
-    environment:
-      - POSTGRES_PASSWORD=12345
-      - METABASE_PASSWORD=12345
-      - PG_DATA = /tmp
-
-  metabase:
-    image: metabase/metabase
-    environment:
-      - MB_DB_TYPE=postgres
-      - MB_DB_DBNAME=ecom
-      - MB_DB_USER=cube
-      - MB_DB_PASS=12345
-      - MB_DB_HOST=localhost
 
 # Volumes to persist data
 volumes:
