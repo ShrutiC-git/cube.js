@@ -38,7 +38,7 @@ services:
           memory: 250M
    volumes:
       - postgres_data:/var/lib/postgresql/data/
-      - ./postgres/:/docker-entrypoint-initdb.d/
+      - ./services/:/docker-entrypoint-initdb.d/
 
   metabase:
    image: metabase/metabase
