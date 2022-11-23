@@ -8,54 +8,62 @@ x-uffizzi:
 
 services:
 
-  cube:
+  materialize:
+    image: materialize/materialized:v0.26.1
+
+  seed:
+    image: jbergknoff/postgresql-client
+    volumes:
+      - seed_volume:/seed
+    entrypoint: ["sh", "seed/seed.sh"]
+
+  cube_playground:
     image: "${CUBEJS_IMAGE}"
     environment:
       - CUBEJS_DEV_MODE=true
-      - CUBEJS_DB_TYPE=postgres
+      - CUBEJS_DB_TYPE=materialize
       - CUBEJS_DB_HOST=localhost
-      - CUBEJS_DB_NAME=metabase
-      - CUBEJS_DB_USER=metabase
-      - CUBEJS_DB_PASS=12345
-      - CUBEJS_DB_PORT=5432
-      - CUBEJS_SQL_USER=metabase
-      - CUBEJS_SQL_PASSWORD=12345
+      - CUBEJS_DB_NAME=materialize
+      - CUBEJS_DB_USER=materialize
+      - CUBEJS_DB_PORT=6875
+      - CUBEJS_API_SECRET=SECRET
     deploy:
       resources:
         limits:
           memory: 500M
     volumes:
      - cube_volume:/cube/conf
-  db:
-   image: postgres
-   environment:
-     - POSTGRES_PASSWORD=12345
-     - PGDATA=/tmp
-     - METABASE_PASSWORD=12345
-   deploy:
-      resources:
-        limits:
-          memory: 250M
-   volumes:
-      - postgres_data:/var/lib/postgresql/data/
-      - ./services/:/docker-entrypoint-initdb.d/
+  # db:
+  #  image: postgres
+  #  environment:
+  #    - POSTGRES_PASSWORD=12345
+  #    - PGDATA=/tmp
+  #    - METABASE_PASSWORD=12345
+  #  deploy:
+  #     resources:
+  #       limits:
+  #         memory: 250M
+  #  volumes:
+  #     - postgres_data:/var/lib/postgresql/data/
+  #     - ./services/:/docker-entrypoint-initdb.d/
 
-  metabase:
-   image: metabase/metabase
-   environment:
-        - MB_DB_TYPE=postgres
-        - MB_DB_DBNAME=metabase
-        - MB_DB_PORT=5432
-        - MB_DB_USER=metabase
-        - MB_DB_PASS=12345
-        - MB_DB_HOST=localhost
-   deploy:
-      resources:
-        limits:
-          memory: 1000M
+  # metabase:
+  #  image: metabase/metabase
+  #  environment:
+  #       - MB_DB_TYPE=postgres
+  #       - MB_DB_DBNAME=metabase
+  #       - MB_DB_PORT=5432
+  #       - MB_DB_USER=metabase
+  #       - MB_DB_PASS=12345
+  #       - MB_DB_HOST=localhost
+  #  deploy:
+  #     resources:
+  #       limits:
+  #         memory: 1000M
 
 # Volumes to persist data
 volumes:
   postgres_data:
   cube_volume:
+  seed_volume:
 

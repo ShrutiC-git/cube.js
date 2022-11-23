@@ -1,64 +1,32 @@
 cube(`Users`, {
   sql: `SELECT * FROM public.users`,
-  
-  preAggregations: {
-    // Pre-Aggregations definitions go here
-    // Learn more here: https://cube.dev/docs/caching/pre-aggregations/getting-started  
-  },
-  
-  joins: {
-    
-  },
-  
-  measures: {
-    count: {
-      type: `count`,
-      drillMembers: [id, city, firstName, lastName, createdAt]
-    }
-  },
-  
+
   dimensions: {
-    state: {
-      sql: `state`,
+    name: {
+      sql: `last_name || ', ' || first_name`,
       type: `string`
     },
-    
-    company: {
-      sql: `company`,
-      type: `string`
-    },
-    
-    id: {
-      sql: `id`,
+
+    age: {
+      sql: `age`,
       type: `number`,
-      primaryKey: true
     },
-    
-    gender: {
-      sql: `gender`,
-      type: `string`
-    },
-    
-    city: {
-      sql: `city`,
-      type: `string`
-    },
-    
-    firstName: {
-      sql: `first_name`,
-      type: `string`
-    },
-    
-    lastName: {
-      sql: `last_name`,
-      type: `string`
-    },
-    
-    createdAt: {
-      sql: `created_at`,
-      type: `time`
-    }
   },
-  
-  dataSource: `default`
+
+  measures: {
+    avgAge: {
+      sql: `age`,
+      type: `avg`,
+    },
+
+    medianAge: {
+      sql: `PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY age)`,
+      type: `number`,
+    },
+
+    p95Age: {
+      sql: `PERCENTILE_CONT(0.95) WITHIN GROUP (ORDER BY age)`,
+      type: `number`,
+    },
+  },
 });
