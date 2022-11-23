@@ -7,19 +7,6 @@ x-uffizzi:
     port: 4000
 
 services:
-  db:
-   image: postgres
-   environment:
-     - POSTGRES_PASSWORD=12345
-     - PGDATA=/tmp
-     - METABASE_PASSWORD=12345
-   deploy:
-      resources:
-        limits:
-          memory: 250M
-   volumes:
-      - postgres_data:/var/lib/postgresql/data/
-      - ./postgres/:/docker-entrypoint-initdb.d/
 
   cube:
     image: "${CUBEJS_IMAGE}"
@@ -39,6 +26,19 @@ services:
           memory: 500M
     volumes:
      - cube_volume:/cube/conf
+  db:
+   image: postgres
+   environment:
+     - POSTGRES_PASSWORD=12345
+     - PGDATA=/tmp
+     - METABASE_PASSWORD=12345
+   deploy:
+      resources:
+        limits:
+          memory: 250M
+   volumes:
+      - postgres_data:/var/lib/postgresql/data/
+      - ./postgres/:/docker-entrypoint-initdb.d/
 
   metabase:
    image: metabase/metabase
