@@ -15,10 +15,10 @@ services:
       - CUBEJS_DB_TYPE=postgres
       - CUBEJS_DB_HOST=localhost
       - CUBEJS_DB_NAME=ecom
-      - CUBEJS_DB_USER=cube
+      - CUBEJS_DB_USER=metabase
       - CUBEJS_DB_PASS=12345
       - CUBEJS_DB_PORT=5432
-      - CUBEJS_SQL_USER=cube
+      - CUBEJS_SQL_USER=metabase
       - CUBEJS_SQL_PASSWORD=12345
     deploy:
       resources:
