@@ -7,9 +7,6 @@ x-uffizzi:
     port: 4000
 
 services:
-  materialize:
-    image: materialize/materialized
-
   cube:
     image: "${CUBEJS_IMAGE}"
     environment:
