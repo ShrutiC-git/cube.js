@@ -29,7 +29,7 @@ services:
 
   postgres:
     image: jbergknoff/postgresql-client
-    entrypoint: ["sh", "/seed/seed.sh"]
+    entrypoint: /seed/seed.sh
     volumes:
       - postgres_data:/var/lib/postgresql/data/
 
