@@ -45,7 +45,7 @@ services:
       - MB_DB_DBNAME=metabase
       - MB_DB_USER=metabase
       - MB_DB_PASS=12345
-      - MB_DB_HOST=postgres
+      - MB_DB_HOST=localhost
 
 # Volumes to persist data
 volumes:
