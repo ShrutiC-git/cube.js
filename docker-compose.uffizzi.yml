@@ -17,7 +17,7 @@ services:
       - seed_volume:/seed
     entrypoint: ["sh", "seed/seed.sh"]
 
-  cube_playground:
+  cube:
     image: "${CUBEJS_IMAGE}"
     environment:
       - CUBEJS_DEV_MODE=true
