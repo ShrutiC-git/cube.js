@@ -11,19 +11,26 @@ services:
     image: "${CUBEJS_IMAGE}"
     environment:
       - CUBEJS_DEV_MODE=true
-      - CUBEJS_DB_HOST=localhost
-      - CUBEJS_DB_NAME=root
-      - CUBEJS_DB_USER=postgres
-      - CUBEJS_DB_PASS=postgres
-      - CUBEJS_DB_TYPE=postgres
-      - CUBEJS_API_SECRET=SECRET
-      - CUBEJS_PG_SQL_PORT=5432
     deploy:
       resources:
         limits:
           memory: 500M
     volumes:
      - cube_volume:/cube/conf
+
+  metabase:
+   image: metabase/metabase
+   environment:
+        - MB_DB_TYPE=postgres
+        - MB_DB_DBNAME=root
+        - MB_DB_PORT=5432
+        - MB_DB_USER=postgres
+        - MB_DB_PASS=postgres
+        - MB_DB_HOST=localhost
+   deploy:
+      resources:
+        limits:
+          memory: 1000M
 
   db:
    image: postgres
