@@ -20,7 +20,7 @@ services:
 
   cube:
     image: "${CUBEJS_IMAGE}"
-    env_file: cube.env
+    env_file: ./cube.env
     # environment:
     #   - CUBEJS_DEV_MODE=true
     #   - CUBEJS_DB_TYPE=postgres
@@ -38,7 +38,7 @@ services:
 
   postgres:
    image: postgres
-   env_file: postgres.env
+   env_file: ./postgres.env
   #  environment:
   #    - POSTGRES_PASSWORD=12345
   #    - PGDATA=/tmp
