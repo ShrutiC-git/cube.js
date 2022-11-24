@@ -31,11 +31,16 @@ services:
       resources:
         limits:
           memory: 500M
+    ports:
+      - 4000:4000  # Cube.js API and Developer Playground
+      - 5432:5432  # Cube SQL API
     # volumes:
     #  - cube_volume:/cube/conf
 
   postgres:
    image: postgres
+   ports:
+      - 54320:5432
    environment:
      - POSTGRES_USER=postgres
      - POSTGRES_PASSWORD=postgres
@@ -59,6 +64,8 @@ services:
         - MB_DB_USER=postgres
         - MB_DB_PASS=postgres
         - MB_DB_HOST=localhost
+   ports:
+      - 3000:3000
    deploy:
       resources:
         limits:
