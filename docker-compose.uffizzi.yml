@@ -20,15 +20,14 @@ services:
 
   cube:
     image: "${CUBEJS_IMAGE}"
-    env_file: ./cube.env
-    # environment:
-    #   - CUBEJS_DEV_MODE=true
-    #   - CUBEJS_DB_TYPE=postgres
-    #   - CUBEJS_DB_HOST=localhost
-    #   - CUBEJS_DB_NAME=metabase
-    #   - CUBEJS_DB_USER=metabase
-    #   - CUBEJS_DB_PASS=12345
-    #   - CUBEJS_API_SECRET=SECRET
+    environment:
+      - CUBEJS_DEV_MODE=true
+      - CUBEJS_DB_TYPE=postgres
+      - CUBEJS_DB_HOST=localhost
+      - CUBEJS_DB_NAME=metabase
+      - CUBEJS_DB_USER=metabase
+      - CUBEJS_DB_PASS=12345
+      - CUBEJS_API_SECRET=SECRET
     deploy:
       resources:
         limits:
@@ -39,9 +38,12 @@ services:
   postgres:
    image: postgres
    env_file: ./postgres.env
-  #  environment:
-  #    - POSTGRES_PASSWORD=12345
-  #    - PGDATA=/tmp
+   environment:
+     - POSTGRES_USER=postgres
+     - POSTGRES_PASSWORD=postgres
+     - POSTGRES_DB=root
+     - PGDATA=/tmp
+     - METABASE_PASSWORD=12345
    deploy:
       resources:
         limits:
