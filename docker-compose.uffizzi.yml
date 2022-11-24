@@ -16,23 +16,6 @@ services:
   #   entrypoint: ["sh", "/seed/seed.sh"]
   #   volumes:
   #     - seed_volume:/seed
-
-  postgres:
-   image: postgres
-   environment:
-     - POSTGRES_USER=postgres
-     - POSTGRES_PASSWORD=postgres
-     - POSTGRES_DB=ecom
-     - PGDATA=/tmp
-     - METABASE_PASSWORD=postgres
-   deploy:
-      resources:
-        limits:
-          memory: 500M
-   volumes:
-      - postgres_data:/var/lib/postgresql/data/
-      - ./sql/:/docker-entrypoint-initdb.d/
-
   cube:
     image: cubejs/cube
     environment:
@@ -50,6 +33,22 @@ services:
       - 4000:4000  # Cube.js API and Developer Playground
     volumes:
      - cube_volume:/cube/conf
+
+  postgres:
+   image: postgres
+   environment:
+     - POSTGRES_USER=postgres
+     - POSTGRES_PASSWORD=postgres
+     - POSTGRES_DB=ecom
+     - PGDATA=/tmp
+     - METABASE_PASSWORD=postgres
+   deploy:
+      resources:
+        limits:
+          memory: 500M
+   volumes:
+      - postgres_data:/var/lib/postgresql/data/
+      - ./sql/:/docker-entrypoint-initdb.d/
 
   metabase:
    image: metabase/metabase
