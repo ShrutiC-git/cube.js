@@ -24,7 +24,7 @@ services:
       - CUBEJS_DEV_MODE=true
       - CUBEJS_DB_TYPE=postgres
       - CUBEJS_DB_HOST=localhost
-      - CUBEJS_DB_NAME=root
+      - CUBEJS_DB_NAME=ecom
       - CUBEJS_DB_USER=postgres
       - CUBEJS_DB_PASS=postgres
     deploy:
@@ -33,7 +33,6 @@ services:
           memory: 500M
     ports:
       - 4000:4000  # Cube.js API and Developer Playground
-      - 5432:5432  # Cube SQL API
     # volumes:
     #  - cube_volume:/cube/conf
 
@@ -44,7 +43,7 @@ services:
    environment:
      - POSTGRES_USER=postgres
      - POSTGRES_PASSWORD=postgres
-     - POSTGRES_DB=root
+     - POSTGRES_DB=ecom
      - PGDATA=/tmp
      - METABASE_PASSWORD=postgres
    deploy:
@@ -53,14 +52,14 @@ services:
           memory: 500M
    volumes:
       - postgres_data:/var/lib/postgresql/data/
-  #    - ./services/:/docker-entrypoint-initdb.d/
+      - ./sql/:/docker-entrypoint-initdb.d/
 
   metabase:
    image: metabase/metabase
    environment:
         - MB_DB_TYPE=postgres
-        - MB_DB_DBNAME=root
-        - MB_DB_PORT=5432
+        - MB_DB_DBNAME=ecom
+        - MB_DB_PORT=54320
         - MB_DB_USER=postgres
         - MB_DB_PASS=postgres
         - MB_DB_HOST=localhost
