@@ -17,6 +17,21 @@ services:
   #   volumes:
   #     - seed_volume:/seed
 
+  postgres:
+   image: postgres
+   environment:
+     - POSTGRES_USER=postgres
+     - POSTGRES_PASSWORD=postgres
+     - POSTGRES_DB=ecom
+     - PGDATA=/tmp
+     - METABASE_PASSWORD=postgres
+   deploy:
+      resources:
+        limits:
+          memory: 500M
+   volumes:
+      - postgres_data:/var/lib/postgresql/data/
+      - ./sql/:/docker-entrypoint-initdb.d/
 
   cube:
     image: cubejs/cube
@@ -33,38 +48,18 @@ services:
           memory: 500M
     ports:
       - 4000:4000  # Cube.js API and Developer Playground
-    # volumes:
-    #  - cube_volume:/cube/conf
-
-  postgres:
-   image: postgres
-   ports:
-      - 54320:5432
-   environment:
-     - POSTGRES_USER=postgres
-     - POSTGRES_PASSWORD=postgres
-     - POSTGRES_DB=ecom
-     - PGDATA=/tmp
-     - METABASE_PASSWORD=postgres
-   deploy:
-      resources:
-        limits:
-          memory: 500M
-   volumes:
-      - postgres_data:/var/lib/postgresql/data/
-      - ./sql/:/docker-entrypoint-initdb.d/
+    volumes:
+     - cube_volume:/cube/conf
 
   metabase:
    image: metabase/metabase
    environment:
         - MB_DB_TYPE=postgres
         - MB_DB_DBNAME=ecom
-        - MB_DB_PORT=54320
+        - MB_DB_PORT=5432
         - MB_DB_USER=postgres
         - MB_DB_PASS=postgres
         - MB_DB_HOST=localhost
-   ports:
-      - 3000:3000
    deploy:
       resources:
         limits:
