@@ -20,50 +20,52 @@ services:
 
   cube:
     image: "${CUBEJS_IMAGE}"
-    environment:
-      - CUBEJS_DEV_MODE=true
-      # - CUBEJS_DB_TYPE=postgres
-      # - CUBEJS_DB_HOST=localhost
-      # - CUBEJS_DB_NAME=metabase
-      # - CUBEJS_DB_USER=metabase
-      # - CUBEJS_DB_PASS=12345
-      # - CUBEJS_API_SECRET=SECRET
+    env_file: cube.env
+    # environment:
+    #   - CUBEJS_DEV_MODE=true
+    #   - CUBEJS_DB_TYPE=postgres
+    #   - CUBEJS_DB_HOST=localhost
+    #   - CUBEJS_DB_NAME=metabase
+    #   - CUBEJS_DB_USER=metabase
+    #   - CUBEJS_DB_PASS=12345
+    #   - CUBEJS_API_SECRET=SECRET
     deploy:
       resources:
         limits:
           memory: 500M
     volumes:
      - cube_volume:/cube/conf
-  db:
+
+  postgres:
    image: postgres
-   environment:
-     - POSTGRES_PASSWORD=12345
-     - PGDATA=/tmp
+   env_file: postgres.env
+  #  environment:
+  #    - POSTGRES_PASSWORD=12345
+  #    - PGDATA=/tmp
    deploy:
       resources:
         limits:
-          memory: 250M
+          memory: 500M
    volumes:
       - postgres_data:/var/lib/postgresql/data/
-      - ./services/:/docker-entrypoint-initdb.d/
+  #    - ./services/:/docker-entrypoint-initdb.d/
 
-  metabase:
-   image: metabase/metabase
-   environment:
-        - MB_DB_TYPE=postgres
-        - MB_DB_DBNAME=metabase
-        - MB_DB_PORT=5432
-        - MB_DB_USER=metabase
-        - MB_DB_PASS=12345
-        - MB_DB_HOST=localhost
-   deploy:
-      resources:
-        limits:
-          memory: 1000M
+  # metabase:
+  #  image: metabase/metabase
+  #  environment:
+  #       - MB_DB_TYPE=postgres
+  #       - MB_DB_DBNAME=metabase
+  #       - MB_DB_PORT=5432
+  #       - MB_DB_USER=metabase
+  #       - MB_DB_PASS=12345
+  #       - MB_DB_HOST=localhost
+  #  deploy:
+  #     resources:
+  #       limits:
+  #         memory: 1000M
 
 # Volumes to persist data
 volumes:
   postgres_data:
   cube_volume:
-  seed_volume:
 
