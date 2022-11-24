@@ -51,19 +51,19 @@ services:
       - postgres_data:/var/lib/postgresql/data/
   #    - ./services/:/docker-entrypoint-initdb.d/
 
-  metabase:
-   image: metabase/metabase
-   environment:
-        - MB_DB_TYPE=postgres
-        - MB_DB_DBNAME=root
-        - MB_DB_PORT=5432
-        - MB_DB_USER=postgres
-        - MB_DB_PASS=postgres
-        - MB_DB_HOST=localhost
-   deploy:
-      resources:
-        limits:
-          memory: 1000M
+  # metabase:
+  #  image: metabase/metabase
+  #  environment:
+  #       - MB_DB_TYPE=postgres
+  #       - MB_DB_DBNAME=root
+  #       - MB_DB_PORT=5432
+  #       - MB_DB_USER=postgres
+  #       - MB_DB_PASS=postgres
+  #       - MB_DB_HOST=localhost
+  #  deploy:
+  #     resources:
+  #       limits:
+  #         memory: 1000M
 
 # Volumes to persist data
 volumes:
