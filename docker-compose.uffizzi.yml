@@ -27,13 +27,12 @@ services:
       - CUBEJS_DB_NAME=root
       - CUBEJS_DB_USER=postgres
       - CUBEJS_DB_PASS=postgres
-      - CUBEJS_API_SECRET=SECRET
     deploy:
       resources:
         limits:
           memory: 500M
-    volumes:
-     - cube_volume:/cube/conf
+    # volumes:
+    #  - cube_volume:/cube/conf
 
   postgres:
    image: postgres
