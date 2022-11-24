@@ -22,12 +22,12 @@ services:
     image: "${CUBEJS_IMAGE}"
     environment:
       - CUBEJS_DEV_MODE=true
-      - CUBEJS_DB_TYPE=postgres
-      - CUBEJS_DB_HOST=localhost
-      - CUBEJS_DB_NAME=metabase
-      - CUBEJS_DB_USER=metabase
-      - CUBEJS_DB_PASS=12345
-      - CUBEJS_API_SECRET=SECRET
+      # - CUBEJS_DB_TYPE=postgres
+      # - CUBEJS_DB_HOST=localhost
+      # - CUBEJS_DB_NAME=metabase
+      # - CUBEJS_DB_USER=metabase
+      # - CUBEJS_DB_PASS=12345
+      # - CUBEJS_API_SECRET=SECRET
     deploy:
       resources:
         limits:
