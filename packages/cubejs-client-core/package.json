@@ -13,6 +13,7 @@
   "types": "index.d.ts",
   "author": "Cube Dev, Inc.",
   "dependencies": {
+    "@cubejs-client/core": "^0.31.15",
     "core-js": "^3.6.5",
     "cross-fetch": "^3.0.2",
     "dayjs": "^1.10.4",
