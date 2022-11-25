@@ -16,7 +16,7 @@
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -c -w",
-    "watch-local": "CUBEJS_API_URL=http://localhost:6020/cubejs-api/v1 rollup -c -w",
+    "watch-local": "CUBEJS_API_URL=https://pr-3-deployment-7973-cube-js.app.uffizzi.com/cubejs-api/v1 rollup -c -w",
     "lint:npm": "yarn npmPkgJsonLint packages/*/package.json rust/package.json",
     "lint": "yarn lint:npm && yarn lerna run lint",
     "lint:fix": "lerna run lint:fix",
@@ -29,12 +29,17 @@
   "author": "Cube Dev, Inc.",
   "dependencies": {
     "@babel/runtime-corejs2": "^7.0.0",
+    "@cubejs-client/core": "^0.31.15",
+    "@cubejs-client/react": "^0.31.15",
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "core-js": "^3.6.5",
     "lerna": "^4.0.0",
-    "ramda": "^0.27.0",
-    "rollup-plugin-dts": "^1.1.8",
+    "moment": "^2.29.4",
+    "numeral": "^2.0.6",
     "patch-package": "^6.4.7",
+    "ramda": "^0.27.0",
+    "recharts": "^2.1.16",
+    "rollup-plugin-dts": "^1.1.8",
     "whatwg-fetch": "^3.0.0"
   },
   "files": [
