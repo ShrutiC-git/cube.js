@@ -7,15 +7,6 @@ x-uffizzi:
     port: 4000
 
 services:
-
-  # materialize:
-  #   image: materialize/materialized:v0.26.1
-
-  # seed:
-  #   image: jbergknoff/postgresql-client
-  #   entrypoint: ["sh", "/seed/seed.sh"]
-  #   volumes:
-  #     - seed_volume:/seed
   cube:
     image: cubejs/cube
     environment:
