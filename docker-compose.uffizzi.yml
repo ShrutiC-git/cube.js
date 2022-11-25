@@ -19,7 +19,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 500M
+          memory: 1000M
     ports:
       - 4000:4000  # Cube.js API and Developer Playground
     volumes:
@@ -33,10 +33,10 @@ services:
      - POSTGRES_DB=ecom
      - PGDATA=/tmp
     # - METABASE_PASSWORD=postgres
-   deploy:
-      resources:
-        limits:
-          memory: 500M
+  #  deploy:
+  #     resources:
+  #       limits:
+  #         memory: 500M
    volumes:
       - postgres_data:/var/lib/postgresql/data/
       - ./sql/:/docker-entrypoint-initdb.d/
