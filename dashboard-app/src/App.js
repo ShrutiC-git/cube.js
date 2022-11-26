@@ -1,32 +1,35 @@
-import React from "react";
-import "./App.css";
-import { makeStyles } from "@material-ui/core/styles";
-import cubejs from "@cubejs-client/core";
-import { CubeProvider } from "@cubejs-client/react";
+import 'antd/dist/antd.css';
+import './App.css'
+import React from 'react';
+import '@ant-design/compatible';
+import { ApolloProvider } from '@apollo/react-hooks';
+import { Layout } from 'antd';
+import cubejs from '@cubejs-client/core';
+import { CubeProvider } from '@cubejs-client/react';
+import client from './graphql/client';
+import Grid from './components/Grid';
 
-const cubejsApi = cubejs(process.env.REACT_APP_CUBEJS_TOKEN, {
-  apiUrl: process.env.REACT_APP_API_URL
+const API_URL = process.env.REACT_APP_API_URL;
+const CUBEJS_TOKEN = process.env.REACT_APP_CUBEJS_TOKEN;
+const cubejsApi = cubejs(CUBEJS_TOKEN, {
+  apiUrl: `${API_URL}/cubejs-api/v1`
 });
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: '#f3f3fb'
-  }
-}));
-
-const AppLayout = ({ children }) => {
-  const classes = useStyles();
-  return (
-    <div className={classes.root}>
-      <div className="App">{children}</div>
-    </div>
-  );
-};
+const AppLayout = ({ children }) => (
+  <Layout
+    style={{
+      height: '100%',
+    }}
+  >
+    <Grid />
+  </Layout>
+);
 
 const App = ({ children }) => (
   <CubeProvider cubejsApi={cubejsApi}>
-    <AppLayout>{children}</AppLayout>
+    <ApolloProvider client={client}>
+      <AppLayout>{children}</AppLayout>
+    </ApolloProvider>
   </CubeProvider>
 );
 

@@ -1,148 +1,74 @@
-import React, { useState } from "react";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import ChartRenderer from "../components/ChartRenderer";
-import Dashboard from "../components/Dashboard";
-import DashboardItem from "../components/DashboardItem";
-const DashboardItems = [
-  {
-    id: 0,
-    name: "Orders last 14 days",
-    vizState: {
-      query: {
-        measures: ["Orders.count"],
-        timeDimensions: [
-          {
-            dimension: "Orders.createdAt",
-            granularity: "day",
-            dateRange: "last 14 days"
-          }
-        ],
-        filters: []
-      },
-      chartType: "line"
-    }
-  },
-  {
-    id: 1,
-    name: "Orders Status by Customers City",
-    vizState: {
-      query: {
-        measures: ["Orders.count"],
-        dimensions: ["Users.city", "Orders.status"],
-        timeDimensions: [
-          {
-            dimension: "Orders.createdAt",
-            dateRange: "last year"
-          }
-        ]
-      },
-      chartType: "bar",
-      pivotConfig: {
-        x: ["Users.city"],
-        y: ["Orders.status", "measures"]
-      }
-    }
-  },
-  {
-    id: 3,
-    name: "Orders by Product Categories Over Time",
-    vizState: {
-      query: {
-        measures: ["Orders.count"],
-        timeDimensions: [
-          {
-            dimension: "Orders.createdAt",
-            granularity: "month",
-            dateRange: "last year"
-          }
-        ],
-        dimensions: ["ProductCategories.name"]
-      },
-      chartType: "area"
-    }
-  },
-  {
-    id: 3,
-    name: "Orders by Price Range",
-    vizState: {
-      query: {
-        measures: ["Orders.count"],
-        filters: [
-          {
-            "dimension": "Orders.price",
-            "operator": "set"
-          }
-        ],
-        dimensions: ["Orders.priceRange"]
-      },
-      chartType: "pie"
-    }
-  }
-];
+import React from 'react';
+import { Spin, Button, Alert } from 'antd';
+import { Link } from 'react-router-dom';
+import { useQuery } from '@apollo/react-hooks';
+import { Icon } from '@ant-design/compatible';
+import { GET_DASHBOARD_ITEMS } from '../graphql/queries';
+import ChartRenderer from '../components/ChartRenderer';
+import Dashboard from '../components/Dashboard';
+import DashboardItem from '../components/DashboardItem';
 
-const dashboardItemsWithFilter = (dashboardItems, statusFilter) => {
-  if (statusFilter === "all") {
-    return dashboardItems;
-  }
+const deserializeItem = (i) => ({
+  ...i,
+  layout: JSON.parse(i.layout) || {},
+  vizState: JSON.parse(i.vizState),
+});
 
-  const statusFilterObj = {
-    member: "Orders.status",
-    operator: "equals",
-    values: [statusFilter]
-  };
-
-  return dashboardItems.map(({ vizState, ...dashboardItem }) => (
-    {
-      ...dashboardItem,
-      vizState: {
-        ...vizState,
-        query: {
-          ...vizState.query,
-          filters: (vizState.query.filters || []).concat(statusFilterObj),
-        },
-      }
-    }
-  ))
-};
+const defaultLayout = (i) => ({
+  x: i.layout.x || 0,
+  y: i.layout.y || 0,
+  w: i.layout.w || 4,
+  h: i.layout.h || 8,
+  minW: 4,
+  minH: 8,
+});
 
 const DashboardPage = () => {
-  const [statusFilter, setStatusFilter] = useState("all");
-  const dashboardItem = item => (
-    <Grid item xs={12} lg={6} key={item.id}>
-      <DashboardItem title={item.name}>
+  const { loading, error, data } = useQuery(GET_DASHBOARD_ITEMS);
+
+  if (loading) {
+    return <Spin />;
+  }
+
+  if (error) {
+    return (
+      <Alert
+        message="Error occured while loading your query"
+        description={error.toString()}
+        type="error"
+      />
+    );
+  }
+
+  const dashboardItem = (item) => (
+    <div key={item.id} data-grid={defaultLayout(item)}>
+      <DashboardItem key={item.id} itemId={item.id} title={item.name}>
         <ChartRenderer vizState={item.vizState} />
       </DashboardItem>
-    </Grid>
+    </div>
   );
 
   const Empty = () => (
     <div
       style={{
-        textAlign: "center",
-        padding: 12
+        textAlign: 'center',
+        padding: 12,
       }}
     >
-      <Typography variant="h5" color="inherit">
-        There are no charts on this dashboard. Use Playground Build to add one.
-      </Typography>
+      <h2>There are no charts on this dashboard</h2>
+      <Link to="/explore">
+        <Button type="primary" size="large" icon={<Icon type="plus" />}>
+          Add chart
+        </Button>
+      </Link>
     </div>
   );
 
-  return DashboardItems.length ? ([
-    <ButtonGroup style={{ padding: "24px 24px 0 24px" }} color="primary">
-      {["all", "processing", "completed", "shipped"].map(value => (
-        <Button
-          variant={value === statusFilter ? "contained" : ""}
-          onClick={() => setStatusFilter(value)}>
-          {value.toUpperCase()}
-        </Button>
-      ))}
-    </ButtonGroup>,
-    <Dashboard>{dashboardItemsWithFilter(DashboardItems, statusFilter).map(dashboardItem)}</Dashboard>
-  ]) : (
+  return !data || data.dashboardItems.length ? (
+    <Dashboard dashboardItems={data && data.dashboardItems}>
+      {data && data.dashboardItems.map(deserializeItem).map(dashboardItem)}
+    </Dashboard>
+  ) : (
     <Empty />
   );
 };
