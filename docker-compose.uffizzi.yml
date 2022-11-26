@@ -66,4 +66,5 @@ services:
 volumes:
   postgres_data:
   cube_volume:
+  .empty:
 
