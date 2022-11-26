@@ -4,7 +4,7 @@ version: '3'
 x-uffizzi:
   ingress:
     service: cube
-    port: 4000
+    port: 8081
 
 services:
   cube:
@@ -43,10 +43,10 @@ services:
       - postgres_data:/var/lib/postgresql/data/
       - ./sql/:/docker-entrypoint-initdb.d/
 
-  # nginx:
-  #   image: nginx:alpine
-  #   volumes:
-  #   - ./nginx:/etc/nginx
+  nginx:
+    image: nginx:alpine
+    volumes:
+    - ./nginx:/etc/nginx
 
   # metabase:
   #  image: metabase/metabase
