@@ -3,7 +3,7 @@ version: '3'
 # uffizzi integration
 x-uffizzi:
   ingress:
-    service: cube
+    service: nginx
     port: 8081
 
 services:
