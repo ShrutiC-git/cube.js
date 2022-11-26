@@ -14,7 +14,7 @@
     "antd": "^3.26.2",
     "d3": "^5.14.2",
     "prop-types": "^15.7.2",
-    "react": "^16.12.0",
+    "react": "^16.13.1",
     "react-dom": "^16.12.0",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",

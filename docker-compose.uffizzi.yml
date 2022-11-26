@@ -3,8 +3,8 @@ version: '3'
 # uffizzi integration
 x-uffizzi:
   ingress:
-    service: cube
-    port: 4000
+    service: nginx
+    port: 8081
 
 services:
   cube:
@@ -20,8 +20,9 @@ services:
       resources:
         limits:
           memory: 1000M
-    ports:
-      - 4000:4000  # Cube.js API and Developer Playground
+    # ports:
+    #   - 4000:4000  # Cube.js API and Developer Playground
+    #   - 3000:3000 #SQL API
     volumes:
      - cube_volume:/cube/conf
 
@@ -40,6 +41,11 @@ services:
    volumes:
       - postgres_data:/var/lib/postgresql/data/
       - ./sql/:/docker-entrypoint-initdb.d/
+
+  nginx:
+    image: nginx:alpine
+    volumes:
+    - ./nginx:/etc/nginx
 
   # metabase:
   #  image: metabase/metabase
