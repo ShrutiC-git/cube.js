@@ -20,9 +20,6 @@ services:
       resources:
         limits:
           memory: 1000M
-    ports:
-      - 4000:4000  # Cube.js API and Developer Playground
-      - 3000:3000 #SQL API
     volumes:
      - cube_volume:/cube/conf
      - .empty:/cube/conf/node_modules/@cubejs-backend
