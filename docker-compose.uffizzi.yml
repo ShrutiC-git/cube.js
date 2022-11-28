@@ -22,7 +22,6 @@ services:
           memory: 2000M
     volumes:
      - cube_volume:/cube/conf
-     - .empty:/cube/conf/node_modules/@cubejs-backend
      - ./dashboard-app:/cube/conf/dashboard-app
 
   postgres:
@@ -32,11 +31,6 @@ services:
      - POSTGRES_PASSWORD=postgres
      - POSTGRES_DB=ecom
      - PGDATA=/tmp
-    # - METABASE_PASSWORD=postgres
-  #  deploy:
-  #     resources:
-  #       limits:
-  #         memory: 500M
    volumes:
       - postgres_data:/var/lib/postgresql/data/
       - ./sql/:/docker-entrypoint-initdb.d/
@@ -64,5 +58,4 @@ services:
 volumes:
   postgres_data:
   cube_volume:
-  .empty:
 
