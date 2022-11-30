@@ -252,7 +252,7 @@ export class DevServer {
       res.json({
         running: !!dashboardPort,
         dashboardPort,
-        dashboardAppPath: path.resolve(options.dashboardAppPath)
+        dashboardAppPath: "http://pr-6-deployment-8119-cube-js.app.uffizzi.com/dashboard-url/"
       });
     }));
 
@@ -436,7 +436,7 @@ export class DevServer {
         const type = keyByDataSource('CUBEJS_DB_TYPE', dataSource);
 
         let driver: BaseDriver | null = null;
-        
+
         try {
           if (!variables || !variables[type]) {
             throw new Error(`${type} is required`);
