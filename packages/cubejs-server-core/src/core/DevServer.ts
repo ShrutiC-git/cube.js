@@ -252,7 +252,7 @@ export class DevServer {
       res.json({
         running: !!dashboardPort,
         dashboardPort,
-        dashboardAppPath: "http://pr-6-deployment-8119-cube-js.app.uffizzi.com/dashboard-url/"
+        dashboardAppPath: path.resolve(options.dashboardAppPath)
       });
     }));
 
